@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+        
+        
+
+        .btn{
+            position: relative;
+            padding: 12px 24px;
+            font-size: 2rem;
+            border:none;
+            box-shadow: 10px 10px 10px;
+            overflow: hidden;
+            cursor:pointer;
+            color: white;
+            background: black;
+           
+           
+
+
+     }
+        .btn::before {
+            content: " ";
+            position: absolute;
+            left: -100px;
+            width:100%;
+            top:0;
+            height: 2px;
+            background:cyan;
+            animation: moveright 2s linear infinite;
+        
+
+        }
+        .btn::after{
+            content:" ";
+            position:absolute;
+            right:-100%;
+            width:100%;
+            bottom: 0;
+            background: magenta;
+            height:2px;
+            animation: moveleft 2s linear infinite;
+            
+
+            
+
+        }
+        @keyframes moveright{
+           from { left:-100%;}
+           to{
+             left:100%
+           }
+        }
+        @keyframes moveleft{
+           from {right:-100%;}
+           to{
+             right:100%
+           }
+        }
+
+        .btn:hover::before {
+      
+      content: "";
+      position: absolute;
+      top: -100%;
+      left: 0;
+      height: 100%;
+      width: 2px;
+      background: cyan;
+      animation: move-right 2s linear infinite;
+      
+    }
+
+    .btn:hover::after {
+      content: "";
+
+      position: absolute;
+      bottom: -100%;
+      right: 0;
+      height: 100%;
+      width: 2px;
+      background: magenta;
+      animation: move-left 2s linear infinite;
+      
+    }
+
+    @keyframes move-right {
+      from { top: -100%; }
+      to { top: 100%;
+           }
+    }
+
+    @keyframes move-left {
+      from { bottom: -100%; }
+      to { bottom: 100%; }
+    }
+
+
+        
+
+    </style>
+</head>
+<body>
+    
+        <button class="btn">Click Me</button>
+    
+    
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        body {
+            font-family: 'poppins', sans-serif;
+            background: linear-gradient(to bottom, #a8c0ff, #3f2b96);
+            color: white;
+            margin: 0;
+            padding: 10px;
+        }
+        i{
+            background: none;
+        
+        }
+        .location-icon {
+        
+            top: 30px;
+            left:100%;
+            font-size: 1.5rem;
+            color: white;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        .weather-container {
+            max-width: 900px;
+            
+            margin: 50px auto;
+            background: rgba(255, 255, 255, 0.37);
+            border-radius: 30px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+
+            padding-bottom: 20px;
+            
+        }
+        .main-weather {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+            padding-bottom: 20px;
+        }
+        .main-weather .info {
+            font-size: 1.5rem;
+
+        }
+        .main-weather .info h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+        .main-weather .details {
+            font-size: 1rem;
+        }
+        .forecast {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .day {
+            flex: 1;
+            flex-grow: 1;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            margin: 0 5px;
+        }
+        .cities {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+            margin-left: 20px;
+        }
+        .city {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1rem;
+            background: linear-gradient(to right, #f81919, #094dfa, #ff7e5f, #d115ce,#feb47b);
+            border-radius: 30px;
+        }
+
+
+        
+    </style>
+</head>
+<body>
+    <div class="location-icon">
+        <input type="text"  id="locationInput" class="locationInput"  placeholder="Search Location" style="width: 200px; padding: 15px; border-radius: 20px; border: none; background: rgba(255, 255, 255, 0.2); color: white;">
+        <button onclick="searchLocation()"><i class="fas fa-search" style="color: #21b0d4 ; background: none;"></i></button>
+        <button onclick="addLocation()"><i class="fas fa-plus-circle"></i></button>
+  
+        <i class="fas fa-map-marker-alt"></i>
+    </div>
+   
+    <div class="weather-container">
+        <div class="main-weather">
+            <div class="info" >
+            <h2>Country</h2>
+            <h1>City</h1>
+            <p>Current Weather</p>
+            <p>34°C | 90% Humidity</p>
+            <p>Wind:  3km/h | AQI: 34</p>
+            </div>
+        
+        <div class="details">
+            <p>20 June,Friday| 12:00 </p>
+            <p> Chance of Rain: 20-25%</p>
+            
+        </div>
+    </div>
+    
+
+    <div class="forecast">
+        <div class="day">
+            <h3>Monday </h3>
+            <p>23 June</p>
+            <i class="fas fa-cloud-showers-heavy"></i>
+            <p> 28~32°C</p>
+            <p>Thunderstorm</p>
+            <p><small>Excellent</small></p>
+        </div>
+        <div class="day">
+            <h3>Tuesday</h3>
+            <p>24 June</p>
+            <i class="fas fa-cloud-rain"></i>
+            <p>25~32°C</p>
+            <p>Rainstorm</p>
+            <p><small>Good</small></p>
+        </div>
+        <div class="day">
+            <h3>Wednesday</h3>
+            <p>25 June</p>
+            <i class="fas fa-sun "></i>
+            <p>25~33°C</p>
+            <p>Sunshine</p>
+            <p><small>Poor</small></p>
+        </div>
+        <div class="day">
+            <h3>Thursday</h3>
+            <p>26 June</p>
+            <i class="fas fa-cloud"></i>
+            <p>25~32°C</p>
+            <p>Partly Cloudy</p>
+            <p><small>Poor</small></p>
+        </div>
+        <div class="day">
+            <h3>Friday</h3>
+            <p> 27 June</p>
+            <i class="fas fa-sun"></i>
+            <p>25~32°C</p>
+            <p>Sunny</p>
+            <p><small>Good</small></p>
+        </div>
+    </div>
+    
+        <div class="cities">
+            <div class="city">Bei Jing<br><strong>23°C</strong></div>
+            <div class="city">Shang Hai<br><strong>25°C</strong></div>
+            <div class="city">Shen Zhen<br><strong>27°C</strong></div>
+            <div class="city">Cheng Du<br><strong>26°C</strong></div>
+        </div>
+    
+    <footer>
+        <p>Weather App &copy; 2025 </p>
+        <p>PM Accelerator
+           <a href=""  target="_blank" ><i class="fab fa-linkedin"></i> </a>
+           
+        </p>
+
+
+
+        <script src="script.js"></script>
+
+    
+</body>
+</html>

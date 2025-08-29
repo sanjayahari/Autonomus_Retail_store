@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+    .tilt-container {
+            perspective: 1000px;
+            margin: 4rem 0;
+        }
+
+        .tilt-content {
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease;
+            padding: 3rem;
+            text-align: center;
+        }
+
+        .tilt-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tilt-content p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+        </style>
+
+</head>
+<body>
+    <section class="tilt-container">
+            <div class="tilt-content glass-container" id="tilt-content">
+                <h2>Join Our Astronomy Community</h2>
+                <p>Connect with fellow space enthusiasts, share your observations, and participate in our monthly stargazing events. Whether you're a beginner or an experienced astronomer, our community offers something for everyone.</p>
+                <p>We host regular workshops, lectures, and viewing sessions that cater to all levels of interest and expertise. Become a member today and unlock a universe of possibilities!</p>
+                <button class="cta-button">Become a Member</button>
+            </div>
+        </section>
+    <script>
+        function setupTiltEffect() {
+            const tiltContent = document.getElementById('tilt-content');
+            
+            tiltContent.addEventListener('mousemove', (e) => {
+                const rect = tiltContent.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = (y - centerY) / 20;
+                const rotateY = (centerX - x) / 20;
+                
+                tiltContent.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+            
+            tiltContent.addEventListener('mouseleave', () => {
+                tiltContent.style.transform = 'rotateX(0) rotateY(0)';
+            });
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            createStars();
+            setupTiltEffect();
+        });
+        </script>
+        
+    
+</body>
+</html>
