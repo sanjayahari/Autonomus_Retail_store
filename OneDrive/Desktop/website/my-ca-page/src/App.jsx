@@ -5,12 +5,12 @@ import React, { useRef, useEffect, useState, useCallback } from 'react';
 const getRandomMargin = () => Math.floor(Math.random() * (120 - 90 + 1)) + 90;
 
 const responsibilities = [
-    { id: 1, icon: '📅', title: 'Project Oversight', description: 'Meticulous management of all project timelines and budget.', alignment: 'left', marginBottom: getRandomMargin() },
-    { id: 2, icon: '👥', title: 'Team Leadership', description: 'Foster collaboration, mentor staff, resolve conflicts.', alignment: 'right', marginBottom: getRandomMargin() },
-    { id: 3, icon: '🗣️', title: 'Client Communication', description: 'Primary liaison, transparency, manage stakeholder expectations.', alignment: 'left', marginBottom: getRandomMargin() },
-    { id: 4, icon: '🛡️', title: 'Quality Assurance', description: 'Establish quality standards and review processes.', alignment: 'right', marginBottom: getRandomMargin() },
-    { id: 5, icon: '⚠️', title: 'Risk Management', description: 'Identify roadblocks, assess impact, and mitigate risks.', alignment: 'left', marginBottom: getRandomMargin() },
-    { id: 6, icon: '📈', 'title': 'Strategic Planning', description: 'Contribute insights to long-term goals and future innovation.', alignment: 'right', marginBottom: getRandomMargin() },
+    { id: 1, icon: '📅', title: 'SPEARHEAD', description: 'Lead and facilitate the participation from your college', alignment: 'left', marginBottom: getRandomMargin() },
+    { id: 2, icon: '👥', title: 'PUBLICITY', description: 'Compose , Execute and pilot a pubblicity plan in your city and college', alignment: 'right', marginBottom: getRandomMargin() },
+    { id: 3, icon: '🗣️', title: 'SPOKESPERSION', description: 'Representative and point of contact from your college', alignment: 'left', marginBottom: getRandomMargin() },
+    { id: 4, icon: '🛡️', title: 'SOCIAL RESPONSIBILTIY', description: 'Be a part of Spring Fest`s social responsibilities aimed for the betterment of the society.', alignment: 'right', marginBottom: getRandomMargin() },
+    { id: 5, icon: '⚠️', title: 'PUBLIC RELATION', description: 'Extend your professional network.', alignment: 'left', marginBottom: getRandomMargin() },
+    { id: 6, icon: '📈', 'title': 'EVENT MANAGEMENT', description: 'Orchestrate the execution of Spring Fest events throughout the year', alignment: 'right', marginBottom: getRandomMargin() },
 ];
 
 const EMOJI_POOL = ['✨', '🌟', '❄️', '🔹', '🔷', '⚡️'];
@@ -23,7 +23,7 @@ const injectKeyframes = () => {
         style.innerHTML = `
             @keyframes floatTitle {
                 0% { transform: translateY(0); }
-                50% { transform: translateY(-15px); }
+                50% { transform: translateY(-2rem); }
                 100% { transform: translateY(0); }
             }
             @keyframes popAndFloat {
@@ -70,13 +70,13 @@ const FanSpinner = React.memo(({ angle, isRightAligned }) => (
             // Desktop (md): Shifted to alternating sides, specific positioning
             md:w-[60px] md:h-[60px]
             ${isRightAligned 
-                ? 'md:right-320px md:left-auto md:translate-x-0' // fan-right equivalent (for alternating layout)
-                : 'md:left-320px md:right-auto md:translate-x-0' // fan-left equivalent (for alternating layout)
+                ? 'md:right-[320px] md:left-auto md:translate-x-0' // fan-right equivalent (for alternating layout)
+                : 'md:left-[320px] md:right-auto md:translate-x-0' // fan-left equivalent (for alternating layout)
             }
         `}
     >
         <svg viewBox="0 0 60 60" width={60} height={60} className="block">
-            <g style={{ transform: `rotate(${angle}deg)`, transformOrigin: "30px 30px", transition: 'transform 0.05s linear' }}>
+            <g style={{ transform: `rotate(${angle}deg)`, transformOrigin: "30px 30px", transition: 'transform .05s linear' }}>
                 {[0, 90, 180, 270].map((rot, i) => (
                     <path
                         key={i}
@@ -111,7 +111,7 @@ const TitlePlatform = () => (
     <header className="text-center pt-16 md:pt-24 mx-auto max-w-6xl">
         <div className="bg-slate-800/75 backdrop-blur-sm p-6 md:p-10 rounded-xl border border-cyan-200/20 mb-10 md:mb-16 shadow-2xl shadow-cyan-400/40 animate-[floatTitle_6s_ease-in-out_infinite] relative z-50">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl leading-tight font-extrabold text-blue-400">Responsibility</h1>
-            <p className="mt-3 text-lg md:text-xl text-cyan-300 max-w-3xl mx-auto">Our six core responsibilities on a dynamic path.</p>
+           
         </div>
     </header>
 );
@@ -120,7 +120,7 @@ const TitlePlatform = () => (
 const FloatingEmoji = ({ e }) => (
     <div
         key={e.id}
-        className="absolute text-2xl pointer-events-none z-100 animate-[popAndFloat_2s_forwards_ease-out]"
+        className="absolute text-2xl pointer-events-none z-[100] animate-[popAndFloat_2s_forwards_ease-out]"
         style={{ left: `${e.x}px`, top: `${e.y}px` }}
     >
         {e.emoji}
@@ -166,6 +166,7 @@ const TimelineStep = React.forwardRef(({ step, isVisible, fanAngle }, ref) => {
             {/* Timeline Card */}
             <div className={`
                 relative bg-slate-800/80 backdrop-blur-sm border-4 p-5 rounded-lg shadow-xl hover:shadow-blue-500/70 transition-all duration-300 
+                
                 ${isRightAligned 
                     ? 'border-r-blue-500' 
                     : 'border-l-blue-500' 
@@ -177,12 +178,12 @@ const TimelineStep = React.forwardRef(({ step, isVisible, fanAngle }, ref) => {
                 {/* Step Marker */}
                 <div
                     className={`
-                        step-marker absolute w-10 h-10 leading-10 text-center text-2xl font-bold rounded-full bg-blue-500 text-white z-20 shadow-lg shadow-blue-500/50 border-4 border-slate-900 
-                        top-5 
+                        step-marker absolute w-10 h-10 leading-10 text-center text-2xl font-bold rounded-full bg-blue-500 text-white z-[-2] shadow-lg shadow-blue-500/50 border-4 border-slate-900 
+                         
                         
                         // Responsive Marker position
-                        left-1/2 -translate-x-1/2 // Center on mobile
-                        md:left-auto md:translate-x-0
+                        left-1/2 -translate-x-1/2  // Center on mobile
+                        md:left-auto md:-translate-x-0
                         ${isRightAligned ? 'md:right-[-2.25rem]' : 'md:left-[-2.25rem]'}
                     `}
                 >
@@ -363,7 +364,7 @@ const App = () => {
 
     return (
         <div
-            className="font-sans bg-slate-900 text-slate-50 min-h-screen overflow-x-hidden relative"
+            className="sans bg-black text-slate-50 min-h-screen overflow-x-hidden relative"
         >
             <div className="content-wrap relative z-10">
                 {floatingEmojis.map(e => (

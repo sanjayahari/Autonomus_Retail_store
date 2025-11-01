@@ -1,1 +1,5 @@
 @import "tailwindcss";
+
+.3d{
+    perspective: 1000px;
+}
