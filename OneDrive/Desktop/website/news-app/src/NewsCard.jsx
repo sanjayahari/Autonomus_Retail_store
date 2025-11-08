@@ -9,9 +9,7 @@ function NewsCard({ article }) {
       <div className="card-body">
         <h2>{article.title}</h2>
         <p className="source">{article.source?.name}</p>
-        <a href={article.url} target="_blank" rel="kuch bhi">
-          Read More →
-        </a>
+        <a href={article.url} target="_blank" rel="kuch bhi">Read More →</a>
       </div>
     </div>
   );

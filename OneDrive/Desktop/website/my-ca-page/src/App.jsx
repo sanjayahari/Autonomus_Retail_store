@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState, useCallback } from 'react';
 
 // --- Global Data and Utilities ---
 
-const getRandomMargin = () => Math.floor(Math.random() * (120 - 90 + 1)) + 90;
+const getRandomMargin = () => Math.floor(Math.random() * (100 - 90 + 1)) + 10;
 
 const responsibilities = [
     { id: 1, icon: '📅', title: 'SPEARHEAD', description: 'Lead and facilitate the participation from your college', alignment: 'left', marginBottom: getRandomMargin() },
@@ -108,8 +108,9 @@ const FanSpinner = React.memo(({ angle, isRightAligned }) => (
 
 // 2. Header Component
 const TitlePlatform = () => (
-    <header className="text-center pt-16 md:pt-24 mx-auto max-w-6xl">
-        <div className="bg-slate-800/75 backdrop-blur-sm p-6 md:p-10 rounded-xl border border-cyan-200/20 mb-10 md:mb-16 shadow-2xl shadow-cyan-400/40 animate-[floatTitle_6s_ease-in-out_infinite] relative z-50">
+    <header className="text-center pt-16 md:pt-24 flex justify-center ">
+        <div className="bg-slate-800/75  backdrop-blur-sm p-6 md:p-10 rounded-xl border border-cyan-200/20 mb-10 md:mb-16 shadow-2xl shadow-cyan-400/40 animate-[floatTitle_6s_ease-in-out_infinite] relative z-50"
+        >
             <h1 className="text-4xl sm:text-5xl lg:text-6xl leading-tight font-extrabold text-blue-400">Responsibility</h1>
            
         </div>
@@ -160,18 +161,21 @@ const TimelineStep = React.forwardRef(({ step, isVisible, fanAngle }, ref) => {
                 }
             `}
             style={dynamicMarginStyle}
+            
+            
         >
             <FanSpinner angle={fanAngle} isRightAligned={isRightAligned} />
             
             {/* Timeline Card */}
             <div className={`
-                relative bg-slate-800/80 backdrop-blur-sm border-4 p-5 rounded-lg shadow-xl hover:shadow-blue-500/70 transition-all duration-300 
+                relative bg-slate-800/80 backdrop-blur-5xl border-4 p-5 rounded-lg shadow-xl hover:shadow-blue-500/70 transition-all duration-300 
                 
                 ${isRightAligned 
                     ? 'border-r-blue-500' 
                     : 'border-l-blue-500' 
                 }
-            `}>
+            `}
+            >
                 <h2 className="text-xl font-bold text-blue-300 md:text-2xl">{step.title}</h2>
                 <p className="mt-2 text-slate-300 text-sm md:text-base">{step.description}</p>
                 
@@ -190,6 +194,7 @@ const TimelineStep = React.forwardRef(({ step, isVisible, fanAngle }, ref) => {
                     {step.icon}
                 </div>
             </div>
+            
         </div>
     );
 });
@@ -364,7 +369,8 @@ const App = () => {
 
     return (
         <div
-            className="sans bg-black text-slate-50 min-h-screen overflow-x-hidden relative"
+            className="sans bg-cover bg-center bg-black text-slate-50 min-h-screen overflow-x-hidden bg-no-repeat relative"
+            
         >
             <div className="content-wrap relative z-10">
                 {floatingEmojis.map(e => (
@@ -379,7 +385,7 @@ const App = () => {
                     handleScroll={(tRef, cRef) => handleScroll(tRef, cRef, isVisible)} // Pass isVisible via closure for safe state update
                     getMarkerCenter={getMarkerCenter}
                 />
-                <div className="h-64"></div>
+                <div className="h-16"></div>
             </div>
         </div>
     );

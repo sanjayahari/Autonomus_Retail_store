@@ -35,7 +35,7 @@ function App() {
       <Header />
       <CategoryNav setCategory={setCategory} />
       {loading ? (
-        <p>Loading news...</p>
+        <p>Loading news... please wait</p>
       ) : (
         <div className="news-grid">
           {articles.map((a, i) => {
