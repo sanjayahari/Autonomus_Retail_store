@@ -22,3 +22,38 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# System and OS Files
+[A-Z]*.lnk
+.bash_history
+.cache/
+.git-for-windows-updater
+.gitconfig
+.lesshst
+.micromamba/
+.node_repl_history
+.viminfo
+.vscode/
+.yarnrc
+NTUSER.DAT*
+ntuser.dat*
+desktop.ini
+
+# OS Folders
+AppData/
+Contacts/
+Downloads/
+Favorites/
+Links/
+Music/
+Saved Games/
+Searches/
+Videos/
+
+# Project/Build Artifacts
+**/node_modules/
+**/dist/
+../news-app/
+../my-react-trial/
+package-lock.json
+package.json
