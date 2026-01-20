@@ -1,0 +1,27 @@
+                        {/* Left Scroll Indicator - Only on small screens */}
+                        <div className="absolute left-2 top-1/2 -translate-y-1/2 z-[100] pointer-events-none md:hidden">
+                            <span 
+                                className="material-icons text-cyan-300" 
+                                style={{
+                                    fontSize: '36px',
+                                    filter: 'drop-shadow(0 0 16px rgba(34, 211, 238, 1)) drop-shadow(0 0 8px rgba(34, 211, 238, 1))',
+                                    animation: 'slideLeft 2s ease-in-out infinite'
+                                }}
+                            >
+                                chevron_left
+                            </span>
+                        </div>
+
+                        {/* Right Scroll Indicator - Only on small screens */}
+                        <div className="absolute right-2 top-1/2 -translate-y-1/2 z-[100] pointer-events-none md:hidden">
+                            <span 
+                                className="material-icons text-cyan-300" 
+                                style={{
+                                    fontSize: '36px',
+                                    filter: 'drop-shadow(0 0 16px rgba(34, 211, 238, 1)) drop-shadow(0 0 8px rgba(34, 211, 238, 1))',
+                                    animation: 'slideRight 2s ease-in-out infinite'
+                                }}
+                            >
+                                chevron_right
+                            </span>
+                        </div>
