@@ -1,0 +1,161 @@
+# docker-compose.yml
+# Autonomous Retail Infrastructure — Full Stack Orchestration
+#
+# Services:
+#   postgres     — Cloud PostgreSQL (TimescaleDB image)
+#   redis        — Session cache + pub/sub for multi-instance cloud API
+#   cloud-api    — Node.js cloud API server (WebSocket relay + REST)
+#   dashboard    — Vite dev server (development) / nginx (production)
+#   mqtt-broker  — Mosquitto MQTT broker (dev only; production uses on-prem)
+#
+# Usage:
+#   Development:   docker compose up
+#   Production:    docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+#
+# The edge engine (C++ Jetson binary) runs on the hardware cluster and
+# connects to the MQTT broker and cloud-api over the local network.
+# It is NOT containerized — it runs natively on aarch64 Jetson hardware.
+
+version: "3.9"
+
+networks:
+  retail-net:
+    driver: bridge
+
+volumes:
+  postgres-data:
+  mosquitto-data:
+
+# ─── Services ─────────────────────────────────────────────────────────────────
+
+services:
+
+  # ── PostgreSQL with TimescaleDB (cloud database) ──────────────────────────
+  postgres:
+    image: timescale/timescaledb:latest-pg16
+    container_name: retail-postgres
+    restart: unless-stopped
+    networks: [retail-net]
+    environment:
+      POSTGRES_DB:       retail
+      POSTGRES_USER:     retail_app
+      POSTGRES_PASSWORD: ${PG_PASSWORD:-changeme_in_prod}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./db-schemas/cloud_schema.sql:/docker-entrypoint-initdb.d/01_schema.sql:ro
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U retail_app -d retail"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    command: >
+      postgres
+        -c max_connections=200
+        -c shared_buffers=256MB
+        -c effective_cache_size=1GB
+        -c maintenance_work_mem=128MB
+        -c checkpoint_completion_target=0.9
+        -c wal_buffers=32MB
+        -c work_mem=4MB
+
+  # ── Redis (cache + pub/sub for multi-store cloud-api scaling) ────────────
+  redis:
+    image: redis:7-alpine
+    container_name: retail-redis
+    restart: unless-stopped
+    networks: [retail-net]
+    ports:
+      - "6379:6379"
+    command: redis-server --maxmemory 256mb --maxmemory-policy allkeys-lru
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+
+  # ── Mosquitto MQTT Broker (dev/test; replace with EMQ X in production) ───
+  mqtt-broker:
+    image: eclipse-mosquitto:2
+    container_name: retail-mqtt
+    restart: unless-stopped
+    networks: [retail-net]
+    ports:
+      - "1883:1883"   # MQTT (plain, LAN-only)
+      - "8883:8883"   # MQTT over TLS (production)
+      - "9001:9001"   # WebSocket over MQTT (optional)
+    volumes:
+      - ./infra/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+      - mosquitto-data:/mosquitto/data
+    healthcheck:
+      test: ["CMD", "mosquitto_sub", "-t", "$$SYS/#", "-C", "1", "-i", "healthcheck", "-W", "3"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+
+  # ── Cloud API Server ──────────────────────────────────────────────────────
+  cloud-api:
+    build:
+      context: ./cloud-api
+      dockerfile: Dockerfile
+    container_name: retail-cloud-api
+    restart: unless-stopped
+    networks: [retail-net]
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      NODE_ENV:         production
+      PORT:             "3001"
+      DATABASE_URL:     postgresql://retail_app:${PG_PASSWORD:-changeme_in_prod}@postgres:5432/retail
+      REDIS_URL:        redis://redis:6379
+      EDGE_SECRET:      ${EDGE_SECRET:-dev-secret-change-in-prod}
+      STORE_ID:         "1"
+      DASHBOARD_ORIGIN: ${DASHBOARD_ORIGIN:-http://localhost:5173}
+    ports:
+      - "3001:3001"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fs http://localhost:3001/health || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+
+  # ── React Dashboard (development mode with Vite HMR) ─────────────────────
+  dashboard:
+    image: node:20-alpine
+    container_name: retail-dashboard
+    working_dir: /app
+    networks: [retail-net]
+    depends_on:
+      cloud-api:
+        condition: service_healthy
+    environment:
+      VITE_WS_URL:     ws://localhost:3001
+      VITE_API_URL:    http://localhost:3001
+      VITE_MOCK_DATA:  "false"   # Set to "true" to use mock data
+    volumes:
+      - ./dashboard:/app
+      - /app/node_modules          # Anonymous volume prevents host override
+    ports:
+      - "5173:5173"
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0"
+    profiles: ["dev"]             # Only starts with: docker compose --profile dev up
+
+  # ── Dashboard (production — nginx serving built assets) ───────────────────
+  dashboard-prod:
+    image: nginx:alpine
+    container_name: retail-dashboard-prod
+    networks: [retail-net]
+    depends_on:
+      cloud-api:
+        condition: service_healthy
+    volumes:
+      - ./dashboard/dist:/usr/share/nginx/html:ro
+      - ./infra/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    ports:
+      - "80:80"
+      - "443:443"
+    profiles: ["prod"]
