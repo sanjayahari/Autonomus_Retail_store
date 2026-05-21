@@ -1,3 +1,4 @@
+<img width="1910" height="861" alt="Screenshot 2026-05-21 210142" src="https://github.com/user-attachments/assets/ec104ccf-a521-4845-8306-d32e33aba93e" />
 # Autonomous Retail Infrastructure — Deployment Runbook
 
 ## System Overview
