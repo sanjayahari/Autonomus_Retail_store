@@ -1,3 +1,8 @@
+<img width="1910" height="861" alt="Screenshot 2026-05-21 210142" src="https://github.com/user-attachments/assets/8dbb9a59-e988-4a55-8378-1eedc2acbd07" />
+<img width="1914" height="869" alt="Screenshot 2026-05-21 210253" src="https://github.com/user-attachments/assets/1ea73bed-055b-49c2-87e3-2d413586c757" />
+<img width="1919" height="865" alt="Screenshot 2026-05-21 210235" src="https://github.com/user-attachments/assets/2edddf56-4238-403c-970a-d84fa895b3b5" />
+<img width="1917" height="857" alt="Screenshot 2026-05-21 210212" src="https://github.com/user-attachments/assets/c967f630-8818-4abd-8788-e45c7ecf124f" />
+<img width="1917" height="868" alt="Screenshot 2026-05-21 210157" src="https://github.com/user-attachments/assets/444b4414-ccf4-4657-b159-cc6d0d8c36e1" />
 <img width="1910" height="861" alt="Screenshot 2026-05-21 210142" src="https://github.com/user-attachments/assets/ec104ccf-a521-4845-8306-d32e33aba93e" />
 # Autonomous Retail Infrastructure — Deployment Runbook
 
