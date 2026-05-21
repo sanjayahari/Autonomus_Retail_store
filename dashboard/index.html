@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- SEO -->
+    <title>Autonomous Retail — AI-Powered Zero-Checkout Store Platform</title>
+    <meta name="description" content="Experience autonomous retail technology: real-time sensor fusion, AI-powered theft detection, and zero-checkout shopping. Live interactive demo powered by edge computing on NVIDIA Jetson."/>
+    <meta name="keywords" content="autonomous retail, cashierless store, sensor fusion, computer vision, edge computing, smart retail, AI checkout"/>
+    <meta name="author" content="Autonomous Retail"/>
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="Autonomous Retail — AI-Powered Zero-Checkout Store"/>
+    <meta property="og:description" content="Live interactive demo of autonomous retail technology: sensor fusion, theft detection, and zero-checkout shopping."/>
+    <meta property="og:url" content="https://autonomous-retail.vercel.app"/>
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:title" content="Autonomous Retail — AI-Powered Zero-Checkout Store"/>
+    <meta name="twitter:description" content="Live interactive demo of autonomous retail technology"/>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%2310b981'/><text x='16' y='24' font-size='22' text-anchor='middle' fill='white' font-family='system-ui'>∅</text></svg>" />
+
+    <!-- Fonts: Geist (UI) + JetBrains Mono (data/telemetry) + Inter (body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap"
+          rel="stylesheet" />
+
+    <style>
+      /* Base reset */
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      html, body, #root { height: 100%; background: #09090b; }
+
+      /* Slim scrollbar for event log panels */
+      .scrollbar-thin::-webkit-scrollbar        { width: 4px; }
+      .scrollbar-thin::-webkit-scrollbar-track  { background: transparent; }
+      .scrollbar-thin::-webkit-scrollbar-thumb  { background: #3f3f46; border-radius: 2px; }
+
+      /* Tabular-nums for all mono elements */
+      .font-mono { font-variant-numeric: tabular-nums; }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
